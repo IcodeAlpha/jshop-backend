@@ -7,17 +7,7 @@ const app = express()
 // callback endpoint
 
 app.post("/initiate", (req, res) => {
-    try {
-
-        //phonenumber, amount, product_name
-        //254769009184
-        //250
-        //"string"
-
-        const {phoneNumber, amount, productName} = req.body;
-    } catch (error) {
-        
-    }
+    console.log("initiate endpoint hit")
 })
 
 app.listen(3000, () => console.log('Server started sucessfully!'))
