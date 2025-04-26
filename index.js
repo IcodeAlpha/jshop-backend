@@ -1,5 +1,6 @@
 import express from 'express'
 import dotenv from 'dotenv'
+import { getAccessToken } from './lib/auth.js'
 
 dotenv.config()
 
@@ -8,7 +9,7 @@ const app = express()
 // initiate -stk
 // callback endpoint
 
-app.post("/initiate", (req, res) => {
+app.post("/initiate", async (req, res) => {
     try {
 
         //phonenumber, amount, product_name
@@ -16,10 +17,27 @@ app.post("/initiate", (req, res) => {
         //250
         //"string"
 
-        const {phoneNumber, amount, productName} = req.body;
+        // const {phoneNumber, amount, productName} = req.body;
 
         // initiateSTK push
+        // 1. Get access token
+        const accessToken = await getAccessToken()
+
+
+
+        res.json({
+            success: true,
+            accessToken
+        })
+
+
+
     } catch (error) {
+
+        res.status(500).json({
+            success: false,
+            error: error.message || "Failed to get access token"
+        })
         
     }
 })
