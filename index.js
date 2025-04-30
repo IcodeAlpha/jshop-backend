@@ -59,7 +59,7 @@ app.post("/callback", async (req, res) => {
         }
 
         // Database Logic to update the transaction status.
-        prisma.transaction.update({
+        await prisma.transaction.update({
             where: {
                 CheckoutRequestID: stkCallbackData.CheckoutRequestID
             },
