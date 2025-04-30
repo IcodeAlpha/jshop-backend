@@ -2,6 +2,7 @@ import express from 'express'
 import dotenv from 'dotenv'
 import { getAccessToken } from './lib/auth.js'
 import { stkPush } from './lib/stkPush.js'
+import prisma from './lib/db.js'
 
 dotenv.config()
 
@@ -23,6 +24,8 @@ app.post("/initiate", async (req, res) => {
 
         // 2. Initiate STK push
         const initiateStkResponse = await stkPush(accessToken, phoneNumber, amount, productName)
+
+       
 
 
         res.json({
@@ -56,6 +59,14 @@ app.post("/callback", async (req, res) => {
         }
 
         // Database Logic to update the transaction status.
+        prisma.transaction.update({
+            where: {
+                CheckoutRequestID: stkCallbackData.CheckoutRequestID
+            },
+            data: {
+                status: status
+            }
+        })
 
         res.json({status, stkCallbackData})
         
