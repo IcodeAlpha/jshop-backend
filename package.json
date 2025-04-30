@@ -7,7 +7,7 @@
   "scripts": {
     "dev": "nodemon index.js",
     "start": "node index.js",
-    "build": "npm install"
+    "build": "npm install && prisma generate"
   },
   "keywords": [],
   "author": "",
