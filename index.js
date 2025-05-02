@@ -49,6 +49,9 @@ app.post("/initiate", async (req, res) => {
 app.post("/callback", async (req, res) => {
     try {
 
+        console.log(req.body)
+
+        console.log(stkCallbackData)
         const stkCallbackData = req.body.Body;
 
         let status = null
